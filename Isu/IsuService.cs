@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Isu.Services;
 using Isu.Tools;
 namespace Isu
@@ -16,12 +17,16 @@ namespace Isu
 
         public Group AddGroup(string name)
         {
+            if (name == null)
+                throw new IsuException("Received null at IsuService's method: AddGroup");
             _listOfGroups.Add(new Group(name));
             return _listOfGroups[_listOfGroups.Count - 1];
         }
 
         public Student AddStudent(Group group, string name)
         {
+            if (group == null)
+                throw new IsuException("Received null at IsuService's method: AddStudent");
             var newStudent = new Student(group.GetGroupName(), name, _nextId);
             group.AddStudent(newStudent);
             _nextId++;
@@ -71,24 +76,33 @@ namespace Isu
 
         public List<Student> FindStudents(string groupName)
         {
-            foreach (Group group in _listOfGroups)
+            /*foreach (Group group in _listOfGroups)
             {
                 if (group.GetGroupName() == groupName)
                     return group.GetStudentsList();
-            }
-
-            return null;
+            }*/
+            IEnumerable<List<Student>> studentsList = from gr in _listOfGroups
+                where gr.GetGroupName() == groupName
+                select gr.GetStudentsList();
+            if (!studentsList.Any())
+                return null;
+            return studentsList.First();
         }
 
         public Group FindGroup(string groupName)
         {
-            foreach (Group group in _listOfGroups)
+            /*foreach (Group group in _listOfGroups)
             {
                 if (group.GetGroupName() == groupName)
                     return group;
-            }
+            }*/
 
-            return null;
+            IEnumerable<Group> group = from gr in _listOfGroups
+                where gr.GetGroupName() == groupName
+                select gr;
+            if (!group.Any())
+                return null;
+            return group.First();
         }
 
         public List<Group> FindGroups(CourseNumber courseNumber)

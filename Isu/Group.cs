@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Isu.Tools;
 namespace Isu
 {
@@ -12,6 +13,8 @@ namespace Isu
 
         public Group(string name)
         {
+            if (name == null)
+                throw new IsuException("Received null at Group's constructor!");
             _listOfStudents = new List<Student>();
 
             if ($"{name[0]}{name[1]}" != _prefix)
@@ -21,10 +24,13 @@ namespace Isu
             _name = name;
         }
 
-        public string GetGroupName() { return _name; }
+        public string GetGroupName() => _name;
 
         public void AddStudent(Student student)
         {
+            if (student == null)
+                throw new IsuException($"Trying to add non-existent student! Group - {_name}");
+
             if (_listOfStudents.Count >= _maximumCapacity)
                 throw new IsuException($"Reached maximum group capacity! Group - {_name}");
             _listOfStudents.Add(student);
@@ -52,28 +58,25 @@ namespace Isu
             return null;
         }
 
-        public CourseNumber GetCourseNumber()
-        {
-            return _courseNumber;
-        }
+        public CourseNumber GetCourseNumber() => _courseNumber;
 
         internal void RemoveStudent(int id)
         {
-            Student removeStudent = null;
-            foreach (Student student in _listOfStudents)
+            // Student removeStudent = null;
+            /*foreach (Student student in _listOfStudents)
             {
                 if (id == student.GetId())
                     removeStudent = student;
-            }
+            }*/
+            IEnumerable<Student> removeStudent = from student in _listOfStudents
+                where student.GetId() == id
+                select student;
 
-            if (removeStudent == null)
+            if (!removeStudent.Any())
                 throw new IsuException($"There no such student! Id = {id}");
-            _listOfStudents.Remove(removeStudent);
+            _listOfStudents.Remove(removeStudent.First());
         }
 
-        internal List<Student> GetStudentsList()
-        {
-            return _listOfStudents;
-        }
+        internal List<Student> GetStudentsList() => _listOfStudents;
     }
 }

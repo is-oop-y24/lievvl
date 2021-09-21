@@ -21,10 +21,8 @@ namespace Isu.Tests
             Group testGroup = _isuService.AddGroup("M3203");
             int id = _isuService.AddStudent(testGroup, "IvanIvanov").GetId();
 
-            if (_isuService.FindGroup("M3203").GetStudent("IvanIvanov") != null && _isuService.GetStudent(id).GetGroupName() == "M3203")
-                Assert.Pass();
-
-            Assert.Fail();
+            Assert.True(_isuService.FindGroup("M3203").GetStudent("IvanIvanov") != null &&
+                _isuService.GetStudent(id).GetGroupName() == "M3203") ;
         }
 
         [Test]
@@ -58,8 +56,8 @@ namespace Isu.Tests
                 Group toGroup = _isuService.AddGroup("M3203");
                 Student testStudent = _isuService.AddStudent(fromGroup, "IvanIvanov");
                 _isuService.ChangeStudentGroup(testStudent, toGroup);
-                if (toGroup.GetStudent("IvanIvanov") == null || testStudent.GetGroupName() != "M3203")
-                    Assert.Fail();
+                Assert.True(toGroup.GetStudent("IvanIvanov") != null &&
+                            testStudent.GetGroupName() == "M3203");
                 _isuService.ChangeStudentGroup(testStudent, toGroup);
             });
         }
