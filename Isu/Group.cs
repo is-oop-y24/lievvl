@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Isu.Tools;
 namespace Isu
@@ -62,19 +63,16 @@ namespace Isu
 
         internal void RemoveStudent(int id)
         {
-            // Student removeStudent = null;
-            /*foreach (Student student in _listOfStudents)
+            try
             {
-                if (id == student.GetId())
-                    removeStudent = student;
-            }*/
-            IEnumerable<Student> removeStudent = from student in _listOfStudents
-                where student.GetId() == id
-                select student;
+                _listOfStudents.First(student => student.GetId() == id);
+            }
+            catch (Exception e)
+            {
+                throw new IsuException($"There is no such student! Id = {id}", e);
+            }
 
-            if (!removeStudent.Any())
-                throw new IsuException($"There no such student! Id = {id}");
-            _listOfStudents.Remove(removeStudent.First());
+            _listOfStudents.Remove(_listOfStudents.First(student => student.GetId() == id));
         }
 
         internal List<Student> GetStudentsList() => _listOfStudents;

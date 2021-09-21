@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Isu.Services;
 using Isu.Tools;
@@ -76,33 +77,32 @@ namespace Isu
 
         public List<Student> FindStudents(string groupName)
         {
-            /*foreach (Group group in _listOfGroups)
+            try
             {
-                if (group.GetGroupName() == groupName)
-                    return group.GetStudentsList();
-            }*/
-            IEnumerable<List<Student>> studentsList = from gr in _listOfGroups
-                where gr.GetGroupName() == groupName
-                select gr.GetStudentsList();
-            if (!studentsList.Any())
+                _listOfGroups.First(x => x.GetGroupName() == groupName).GetStudentsList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 return null;
-            return studentsList.First();
+            }
+
+            return _listOfGroups.First(x => x.GetGroupName() == groupName).GetStudentsList();
         }
 
         public Group FindGroup(string groupName)
         {
-            /*foreach (Group group in _listOfGroups)
+            try
             {
-                if (group.GetGroupName() == groupName)
-                    return group;
-            }*/
-
-            IEnumerable<Group> group = from gr in _listOfGroups
-                where gr.GetGroupName() == groupName
-                select gr;
-            if (!group.Any())
+                _listOfGroups.First(group => group.GetGroupName() == groupName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 return null;
-            return group.First();
+            }
+
+            return _listOfGroups.First(group => group.GetGroupName() == groupName);
         }
 
         public List<Group> FindGroups(CourseNumber courseNumber)
