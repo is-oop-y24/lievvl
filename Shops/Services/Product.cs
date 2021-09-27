@@ -17,7 +17,22 @@ namespace Shops.Services
             _amount = amount;
         }
 
-        public void DecreaseAmount(int buyedAmount)
+        public string Name
+        {
+            get { return _name; }
+        }
+
+        public int Price
+        {
+            get { return _price; }
+        }
+
+        public int Amount
+        {
+            get { return _amount; }
+        }
+
+        internal void DecreaseAmount(int buyedAmount)
         {
             if (buyedAmount > _amount)
                 throw new ShopException("Buyed more than shop have!");
@@ -26,14 +41,14 @@ namespace Shops.Services
             _amount -= buyedAmount;
         }
 
-        public void IncreaseAmount(int deliveredAmount)
+        internal void IncreaseAmount(int deliveredAmount)
         {
             if (deliveredAmount < 0)
                 throw new ShopException("Delivered negative amount of products!");
             _amount += deliveredAmount;
         }
 
-        public void ChangePrice(int newPrice)
+        internal void ChangePrice(int newPrice)
         {
             _price = newPrice;
         }

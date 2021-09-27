@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Shops.Tools;
 
 namespace Shops.Services
@@ -17,12 +19,25 @@ namespace Shops.Services
             _name = name;
         }
 
-        public void AddProducts(Product product)
+        public int Id
         {
-            foreach (Product product in _listOfProduct)
+            get { return _id; }
+        }
+
+        public string 
+
+        internal void AddProduct(Product product)
+        {
+            Product isThereProduct = _listOfProduct.SingleOrDefault(iterProduct => iterProduct.Name == product.Name);
+            if (isThereProduct == null)
             {
-                if (product.)
+                _listOfProduct.Add(product);
+            }
+            else
+            {
+                isThereProduct.IncreaseAmount(product.Amount);
             }
         }
+
     }
 }
