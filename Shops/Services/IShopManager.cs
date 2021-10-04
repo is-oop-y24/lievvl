@@ -14,11 +14,11 @@ namespace Shops.Services
         public Shop GetShop(int id);
 
         public void SetNewPrice(Shop shop, Product product, int newPrice);
-
         public void DeliverProduct(Shop shop, Product product, int amount);
-        public void BuyProduct(Shop shop, Product product, Person person, int amount);
 
-        // public void BuyProducts(Shop shop, Dictionary<Product, int> productsAndAmount, Person person);
+        public void BuyProduct(Shop shop, Product product, Person person, int amount);
+        public void BuyProducts(Shop shop, Dictionary<Product, int> productsAndAmount, Person person);
+
         public void CloseShop(Shop shop);
         public void RemoveProduct(Product product);
         public void RemoveProductFromShop(Product product, Shop shop);

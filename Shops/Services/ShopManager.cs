@@ -102,6 +102,31 @@ namespace Shops.Services
             shop.BuyProduct(product, person, amount);
         }
 
+        public void BuyProducts(Shop shop, Dictionary<Product, int> productsAndAmount, Person person)
+        {
+            bool isThereShop = _listOfShops.Any(sh => sh.Id == shop.Id);
+            if (!isThereShop)
+                throw new ShopException("Trying to buy products from non-existent shop!");
+            int bill = 0;
+            foreach (Product product in productsAndAmount.Keys)
+            {
+                bool isThereProduct = _listOfProducts.Any(prod => prod.Id == product.Id);
+                if (!isThereProduct)
+                    throw new ShopException("Trying to buy non-existent product at shop!");
+                if (productsAndAmount[product] > shop.CheckProductAmount(product))
+                    throw new ShopException("Shop don't have this amount of product!");
+                bill += shop.CheckProductPrice(product) * productsAndAmount[product];
+            }
+
+            if (person.Money < bill)
+                throw new ShopException("Ha-ha, you poor");
+
+            foreach (Product product in productsAndAmount.Keys)
+            {
+                shop.BuyProduct(product, person, productsAndAmount[product]);
+            }
+        }
+
         public void CloseShop(Shop shop)
         {
             bool isThereShop = _listOfShops.Any(sh => sh.Id == shop.Id);
