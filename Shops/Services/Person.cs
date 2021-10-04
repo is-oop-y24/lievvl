@@ -15,10 +15,5 @@
 
             internal set { _money = value;  }
         }
-
-        public void GiveSalary(int salary)
-        {
-            _money += salary;
-        }
     }
 }

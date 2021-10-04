@@ -21,9 +21,8 @@ namespace Shops.Services
 
         public Shop AddShop(string name, string address)
         {
-            var shop = new Shop(_nextShopId, address, name);
+            var shop = new Shop(_nextShopId++, address, name);
             _listOfShops.Add(shop);
-            _nextShopId++;
             return shop;
         }
 
@@ -32,9 +31,8 @@ namespace Shops.Services
             bool isThereProduct = _listOfProducts.Any(prod => prod.Name == name);
             if (isThereProduct)
                 throw new ShopException("Manager already contains this product!");
-            var productToAdd = new Product(name, _nextProductId);
+            var productToAdd = new Product(name, _nextProductId++);
             _listOfProducts.Add(productToAdd);
-            _nextProductId++;
             return productToAdd;
         }
 

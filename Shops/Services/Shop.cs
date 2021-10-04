@@ -41,7 +41,7 @@ namespace Shops.Services
 
         public int CheckProductAmount(Product product)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (!isThereProduct)
                 throw new ShopException("There no such product!");
             return _dictionaryOfProducts[product].Amount;
@@ -49,7 +49,7 @@ namespace Shops.Services
 
         public int CheckProductPrice(Product product)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (!isThereProduct)
                 throw new ShopException("There no such product!");
             return _dictionaryOfProducts[product].Price;
@@ -57,7 +57,7 @@ namespace Shops.Services
 
         internal void AddProduct(Product product, int price, int amount = 0)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (isThereProduct)
                 throw new ShopException("Shop already contains this product!");
 
@@ -66,7 +66,7 @@ namespace Shops.Services
 
         internal void DeliverProducts(Product product, int amount)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (!isThereProduct)
                 throw new ShopException("Shop haven't got that product!");
             if (amount < 0)
@@ -77,7 +77,7 @@ namespace Shops.Services
 
         internal void SetNewPrice(Product product, int newPrice)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (!isThereProduct)
                 throw new ShopException("Shop haven't got that product!");
             _dictionaryOfProducts[product].Price = newPrice;
@@ -85,7 +85,7 @@ namespace Shops.Services
 
         internal void BuyProduct(Product product, Person person, int amount)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (!isThereProduct)
                 throw new ShopException("Shop haven't got that product!");
 
@@ -104,7 +104,7 @@ namespace Shops.Services
 
         internal void DeleteProduct(Product product)
         {
-            bool isThereProduct = _dictionaryOfProducts.Keys.Any(prod => prod.Id == product.Id);
+            bool isThereProduct = CheckIfThereProduct(product);
             if (!isThereProduct)
                 throw new ShopException("Shop trying to delete non-existent product!");
             _dictionaryOfProducts.Remove(product);

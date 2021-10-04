@@ -4,23 +4,23 @@ namespace Shops.Services
 {
     public interface IShopManager
     {
-        public Shop AddShop(string name, string address);
-        public Product AddProduct(string name);
-        public void AddProductToShop(Product product, int price, int amount, Shop shop);
+        Shop AddShop(string name, string address);
+        Product AddProduct(string name);
+        void AddProductToShop(Product product, int price, int amount, Shop shop);
 
-        public Product FindProduct(string name);
-        public Product GetProduct(int id);
-        public List<Shop> FindShopsContainingProduct(Product product);
-        public Shop GetShop(int id);
+        Product FindProduct(string name);
+        Product GetProduct(int id);
+        List<Shop> FindShopsContainingProduct(Product product);
+        Shop GetShop(int id);
 
-        public void SetNewPrice(Shop shop, Product product, int newPrice);
-        public void DeliverProduct(Shop shop, Product product, int amount);
+        void SetNewPrice(Shop shop, Product product, int newPrice);
+        void DeliverProduct(Shop shop, Product product, int amount);
 
-        public void BuyProduct(Shop shop, Product product, Person person, int amount);
-        public void BuyProducts(Shop shop, Dictionary<Product, int> productsAndAmount, Person person);
+        void BuyProduct(Shop shop, Product product, Person person, int amount);
+        void BuyProducts(Shop shop, Dictionary<Product, int> productsAndAmount, Person person);
 
-        public void CloseShop(Shop shop);
-        public void RemoveProduct(Product product);
-        public void RemoveProductFromShop(Product product, Shop shop);
+        void CloseShop(Shop shop);
+        void RemoveProduct(Product product);
+        void RemoveProductFromShop(Product product, Shop shop);
     }
 }

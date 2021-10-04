@@ -10,7 +10,10 @@ namespace Shops.Services
         public Product(string name, int id)
         {
             if (name == null)
+            {
                 throw new ShopException("Received null instead of name");
+            }
+
             _name = name;
             _id = id;
         }
