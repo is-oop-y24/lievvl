@@ -50,8 +50,7 @@ namespace IsuExtra.Entities
 
         internal CourseStream AddCourseStream()
         {
-            var stream = new CourseStream(_nextNumberOfStream);
-            _nextNumberOfStream++;
+            var stream = new CourseStream(_nextNumberOfStream++);
             _listOfStreams.Add(stream);
             return stream;
         }

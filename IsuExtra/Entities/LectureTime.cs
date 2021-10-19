@@ -1,13 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using Isu.Tools;
 
 namespace IsuExtra.Entities
 {
     public class LectureTime
     {
-        // DayPattern is used to check with Regex, if input match one of week days
-        private const string DayPattern = @"^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)$";
-
         // TimePattern is used to check with Regex, if input match time format
         private const string TimePattern = @"^([0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
         private string _dayOfWeek;
@@ -26,13 +24,55 @@ namespace IsuExtra.Entities
             DayOfWeek = dayOfWeek;
         }
 
+        /// <summary>
+        /// Days of week.
+        /// </summary>
+        public enum DaysOfWeek
+        {
+            /// <summary>
+            /// Represents a monday.
+            /// </summary>
+            Monday,
+
+            /// <summary>
+            /// Represents a tuesday.
+            /// </summary>
+            Tuesday,
+
+            /// <summary>
+            /// Represents a wednesday.
+            /// </summary>
+            Wednesday,
+
+            /// <summary>
+            /// Represents a thursday.
+            /// </summary>
+            Thursday,
+
+            /// <summary>
+            /// Represents a friday.
+            /// </summary>
+            Friday,
+
+            /// <summary>
+            /// Represents a saturday.
+            /// </summary>
+            Saturday,
+
+            /// <summary>
+            /// Thanks resharper!
+            /// </summary>
+            Sunday,
+        }
+
         public string DayOfWeek
         {
             get => _dayOfWeek;
 
             internal set
             {
-                if (!Regex.IsMatch(value, DayPattern))
+                bool isDefined = Enum.IsDefined(typeof(DaysOfWeek), value);
+                if (!isDefined)
                 {
                     throw new IsuException("Trying to set incorrect day!");
                 }
@@ -90,12 +130,7 @@ namespace IsuExtra.Entities
 
             int compare1 = string.CompareOrdinal(EndTime, lectureTime.BeginTime);
             int compare2 = string.CompareOrdinal(lectureTime.EndTime, BeginTime);
-            if (compare1 >= 0 && compare2 >= 0)
-            {
-                return true;
-            }
-
-            return false;
+            return compare1 >= 0 && compare2 >= 0;
         }
     }
 }
