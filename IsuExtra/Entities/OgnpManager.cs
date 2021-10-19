@@ -2,17 +2,18 @@
 using System.Linq;
 using Isu;
 using Isu.Tools;
+using IsuExtra.Services;
 
 namespace IsuExtra.Entities
 {
-    public class MyItmo
+    public class OgnpManager : IOgnpManager
     {
         private IsuService _isuService;
         private List<Course> _listOfOgnpCourses;
         private List<StudingGroup> _listOfStudingGroups;
         private int _nextCourseId;
 
-        public MyItmo()
+        public OgnpManager()
         {
             _isuService = new IsuService();
             _listOfOgnpCourses = new List<Course>();

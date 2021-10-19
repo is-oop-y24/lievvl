@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Isu.Tools;
 
 namespace IsuExtra.Entities
@@ -11,9 +10,11 @@ namespace IsuExtra.Entities
         private string _dayOfWeek;
         private string _beginTime;
         private string _endTime;
+        private DaysOfWeekEnum _daysOfWeek;
 
         public LectureTime(string beginTime, string endTime, string dayOfWeek)
         {
+            _daysOfWeek = new DaysOfWeekEnum();
             BeginTime = beginTime;
             EndTime = endTime;
             if (string.CompareOrdinal(BeginTime, EndTime) > 0)
@@ -24,54 +25,13 @@ namespace IsuExtra.Entities
             DayOfWeek = dayOfWeek;
         }
 
-        /// <summary>
-        /// Days of week.
-        /// </summary>
-        public enum DaysOfWeek
-        {
-            /// <summary>
-            /// Represents a monday.
-            /// </summary>
-            Monday,
-
-            /// <summary>
-            /// Represents a tuesday.
-            /// </summary>
-            Tuesday,
-
-            /// <summary>
-            /// Represents a wednesday.
-            /// </summary>
-            Wednesday,
-
-            /// <summary>
-            /// Represents a thursday.
-            /// </summary>
-            Thursday,
-
-            /// <summary>
-            /// Represents a friday.
-            /// </summary>
-            Friday,
-
-            /// <summary>
-            /// Represents a saturday.
-            /// </summary>
-            Saturday,
-
-            /// <summary>
-            /// Thanks resharper!
-            /// </summary>
-            Sunday,
-        }
-
         public string DayOfWeek
         {
             get => _dayOfWeek;
 
             internal set
             {
-                bool isDefined = Enum.IsDefined(typeof(DaysOfWeek), value);
+                bool isDefined = _daysOfWeek.IsDefined(value);
                 if (!isDefined)
                 {
                     throw new IsuException("Trying to set incorrect day!");
