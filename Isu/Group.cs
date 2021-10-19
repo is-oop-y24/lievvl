@@ -7,7 +7,6 @@ namespace Isu
     public class Group
     {
         private const int _maximumCapacity = 25;
-        private const string _prefix = "M3";
         private List<Student> _listOfStudents;
         private string _name;
         private CourseNumber _courseNumber;
@@ -17,9 +16,6 @@ namespace Isu
             if (name == null)
                 throw new IsuException("Received null at Group's constructor!");
             _listOfStudents = new List<Student>();
-
-            if ($"{name[0]}{name[1]}" != _prefix)
-                throw new IsuException("Wrong group prefix!");
 
             _courseNumber = new CourseNumber(name[2] - '0');
             _name = name;
