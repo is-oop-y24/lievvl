@@ -13,7 +13,7 @@ namespace Backups.Services
             _backupJob = null;
         }
 
-        public abstract RestorePoint Save(List<MemoryStream> listOfArchives, DateTime date);
+        public abstract List<string> Save(List<MemoryStream> listOfArchives, DateTime date);
 
         internal void SetJob(BackupJob job)
         {
