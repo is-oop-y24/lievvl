@@ -19,7 +19,7 @@ namespace Backups.SaveStrategies
             foreach (string filepath in jobObject.FilePaths)
             {
                 using var mStream = new MemoryStream();
-                using var archive = new ZipArchive(mStream);
+                using var archive = new ZipArchive(mStream, ZipArchiveMode.Create, true);
                 string filename = filepath.Split("\\")[^1];
                 archive.CreateEntryFromFile(filepath, filename);
                 listOfArchivesAtByte.Add(mStream);

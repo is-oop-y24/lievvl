@@ -16,7 +16,7 @@ namespace Backups.SaveStrategies
         {
             var listOfArchivesAtByte = new List<MemoryStream>();
             using var mStream = new MemoryStream();
-            using var archive = new ZipArchive(mStream);
+            using var archive = new ZipArchive(mStream, ZipArchiveMode.Create, true);
 
             foreach (string filepath in jobObject.FilePaths)
             {

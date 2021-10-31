@@ -14,7 +14,7 @@ namespace Backups.Repositories
             var storages = new List<Storage>();
             foreach (MemoryStream mStream in zipArchivesAtByte)
             {
-                string storagePath = $"{GetJobPath()}\\{date}+{i++}.zip";
+                string storagePath = $"{GetJobPath()}\\{date.ToString("yyyyMMddhhmmss")}+{i++}.zip";
                 storages.Add(new Storage(storagePath));
                 File.WriteAllBytes(storagePath, mStream.ToArray());
             }

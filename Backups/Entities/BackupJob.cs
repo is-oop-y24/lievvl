@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Backups.Services;
 
 namespace Backups.Entities
@@ -17,6 +18,7 @@ namespace Backups.Entities
             _jobObject = new JobObject();
             _repository = repository;
             repository.SetJob(this);
+            Directory.CreateDirectory(_jobPath);
         }
 
         public JobObject JobObject
