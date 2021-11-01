@@ -1,4 +1,5 @@
-﻿using Backups.Entities;
+﻿using System.IO;
+using Backups.Entities;
 using Backups.Repositories;
 using Backups.SaveStrategies;
 using NUnit.Framework;
@@ -11,6 +12,8 @@ namespace Backups.Tests
         [SetUp]
         public void Setup()
         {
+            File.WriteAllText(".\\1.txt", "file1");
+            File.WriteAllText(".\\2.txt", "file2");
             job.JobObject.AddFile(".\\1.txt");
             job.JobObject.AddFile(".\\2.txt");
         }

@@ -9,12 +9,12 @@ namespace Backups
     {
         private static void Main()
         {
-            var job = new BackupJob(".\\testdir", new SaveStrategySplitStorage(), new FileSystemRepository());
+            /*var job = new BackupJob(".\\testdir", new SaveStrategySplitStorage(), new FileSystemRepository());
             job.JobObject.AddFile(".\\1.txt");
             job.JobObject.AddFile(".\\2.txt");
             job.JobObject.AddFile(".\\3.txt");
 
-            job.Save();
+            job.Save();*/
         }
     }
 }
