@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Backups.Services;
 
 namespace Backups.Entities
@@ -9,11 +8,11 @@ namespace Backups.Entities
     {
         private JobObject _jobObject;
         private ISaveStrategy _saveStrategy;
-        private Repository _repository;
+        private AbstractRepository _repository;
         private string _jobPath;
         private List<RestorePoint> _listOfRestorePoints;
 
-        public BackupJob(string jobPath, ISaveStrategy saveStrategy, Repository repository)
+        public BackupJob(string jobPath, ISaveStrategy saveStrategy, AbstractRepository repository)
         {
             _jobPath = jobPath;
             _saveStrategy = saveStrategy;
@@ -21,7 +20,6 @@ namespace Backups.Entities
             _repository = repository;
             repository.SetJob(this);
             _listOfRestorePoints = new List<RestorePoint>();
-            Directory.CreateDirectory(_jobPath);
         }
 
         public IReadOnlyList<RestorePoint> RestorePoints
@@ -51,8 +49,9 @@ namespace Backups.Entities
 
         public RestorePoint Save()
         {
-            _listOfRestorePoints.Add(_saveStrategy.Execute(_jobObject, _repository, DateTime.Now));
-            return _listOfRestorePoints[^1];
+            RestorePoint restorePoint = _saveStrategy.Execute(_jobObject, _repository, DateTime.Now);
+            _listOfRestorePoints.Add(restorePoint);
+            return restorePoint;
         }
 
         public void DeleteRestorePoint(RestorePoint restorePoint)

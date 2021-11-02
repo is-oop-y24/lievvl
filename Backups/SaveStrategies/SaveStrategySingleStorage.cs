@@ -12,7 +12,7 @@ namespace Backups.SaveStrategies
         public SaveStrategySingleStorage() { }
 
         // Maybe somewhere memory leak, idk
-        public RestorePoint Execute(JobObject jobObject, Repository repository, DateTime date)
+        public RestorePoint Execute(JobObject jobObject, AbstractRepository repository, DateTime date)
         {
             var listOfArchivesAtByte = new List<MemoryStream>();
             var listOfFilenames = new List<string>();

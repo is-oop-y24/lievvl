@@ -5,7 +5,7 @@ using Backups.Services;
 
 namespace Backups.Repositories
 {
-    public class VirtualRepository : Repository
+    public class VirtualRepository : AbstractRepository
     {
         private List<List<MemoryStream>> _memoryStreams;
 

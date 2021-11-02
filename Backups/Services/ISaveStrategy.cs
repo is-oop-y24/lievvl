@@ -5,6 +5,6 @@ namespace Backups.Services
 {
     public interface ISaveStrategy
     {
-        RestorePoint Execute(JobObject jobObject, Repository repository, DateTime date);
+        RestorePoint Execute(JobObject jobObject, AbstractRepository repository, DateTime date);
     }
 }

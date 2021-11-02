@@ -5,10 +5,10 @@ using Backups.Entities;
 
 namespace Backups.Services
 {
-    public abstract class Repository
+    public abstract class AbstractRepository
     {
         private BackupJob _backupJob;
-        public Repository()
+        public AbstractRepository()
         {
             _backupJob = null;
         }

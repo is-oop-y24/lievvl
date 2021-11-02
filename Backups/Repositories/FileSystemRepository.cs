@@ -5,10 +5,15 @@ using Backups.Services;
 
 namespace Backups.Repositories
 {
-    public class FileSystemRepository : Repository
+    public class FileSystemRepository : AbstractRepository
     {
         public override List<string> Save(List<MemoryStream> zipArchivesAtByte, DateTime date)
         {
+            if (!Directory.Exists(GetJobPath()))
+            {
+                Directory.CreateDirectory(GetJobPath());
+            }
+
             int i = 0;
             var zipPaths = new List<string>();
             foreach (MemoryStream mStream in zipArchivesAtByte)
