@@ -8,7 +8,7 @@ namespace Backups.Tests
 {
     public class Tests
     {
-        private BackupJob job = new BackupJob(".\\testDir", new SaveStrategySingleStorage(), new VirtualRepository());
+        private BackupJob job = new BackupJob(".\\testDir", new SaveStrategySplitStorage(), new VirtualRepository());
         [SetUp]
         public void Setup()
         {

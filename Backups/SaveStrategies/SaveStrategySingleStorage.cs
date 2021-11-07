@@ -11,32 +11,31 @@ namespace Backups.SaveStrategies
     {
         public SaveStrategySingleStorage() { }
 
-        // Maybe somewhere memory leak, idk
         public RestorePoint Execute(JobObject jobObject, AbstractRepository repository, DateTime date)
         {
             var listOfArchivesAtByte = new List<MemoryStream>();
             var listOfFilenames = new List<string>();
+            using var mStream = new MemoryStream();
+            using var archive = new ZipArchive(mStream, ZipArchiveMode.Create, true);
 
             foreach (string filepath in jobObject.FilePaths)
             {
-                using var mStream = new MemoryStream();
-                using var archive = new ZipArchive(mStream, ZipArchiveMode.Create, true);
                 string filename = filepath.Split("\\")[^1];
                 archive.CreateEntryFromFile(filepath, filename);
-                archive.Dispose();
-                listOfArchivesAtByte.Add(mStream);
                 listOfFilenames.Add(filename);
             }
 
-            List<string> listOfZipPaths = repository.Save(listOfArchivesAtByte, date);
-            var listOfStorages = new List<Storage>();
+            archive.Dispose();
+            listOfArchivesAtByte.Add(mStream);
+            List<string> zipPaths = repository.Save(listOfArchivesAtByte, date);
+            var storages = new List<Storage>();
 
-            for (int i = 0; i < listOfZipPaths.Count; i++)
+            for (int i = 0; i < listOfFilenames.Count; i++)
             {
-                listOfStorages.Add(new Storage(listOfZipPaths[i], listOfFilenames[i], jobObject.FilePaths[i]));
+                storages.Add(new Storage(zipPaths[0], listOfFilenames[i], jobObject.FilePaths[i]));
             }
 
-            return new RestorePoint(date, listOfStorages);
+            return new RestorePoint(date, storages);
         }
     }
 }
