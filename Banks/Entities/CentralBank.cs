@@ -17,10 +17,16 @@ namespace Banks.Entities
         }
 
         public IReadOnlyList<Bank> ListOfBanks { get => _listOfBanks; }
+        public IBankBuilder BankBuilder { get => _bankBuilder; }
 
         public static CentralBank GetSingleton()
         {
             return _singleton ??= new CentralBank();
+        }
+
+        public void AddBank(Bank bank)
+        {
+            _listOfBanks.Add(bank);
         }
 
         public void PayInterests()

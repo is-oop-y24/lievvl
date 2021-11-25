@@ -6,13 +6,14 @@ namespace Banks.Entities.Accounts
 {
     public class CreditAccount : AbstractAccount
     {
-        private float _commission;
-        public CreditAccount(Client client, DateTime expiredDate, float commission)
+        private double _commission;
+        public CreditAccount(Client client, DateTime expiredDate, double commission)
             : base(client, expiredDate)
         {
             _commission = commission;
         }
 
+        // TODO: Implement
         public override void Update(string message)
         {
             throw new System.NotImplementedException();
@@ -26,7 +27,7 @@ namespace Banks.Entities.Accounts
             }
         }
 
-        internal override void AddMoney(float money)
+        internal override void AddMoney(double money)
         {
             if (money < 0)
             {
@@ -36,7 +37,7 @@ namespace Banks.Entities.Accounts
             SetMoney(Money + money);
         }
 
-        internal override void DecreaseMoney(float money)
+        internal override void DecreaseMoney(double money)
         {
             if (money < 0)
             {

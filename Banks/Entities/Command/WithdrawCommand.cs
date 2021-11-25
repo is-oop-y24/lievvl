@@ -6,10 +6,10 @@ namespace Banks.Entities.Command
     public class WithdrawCommand : ICommand
     {
         private AbstractAccount _accountFrom;
-        private float _money;
+        private double _money;
         private bool _denied;
 
-        public WithdrawCommand(AbstractAccount accountFrom, float money)
+        public WithdrawCommand(AbstractAccount accountFrom, double money)
         {
             if (accountFrom.Client.IsAccountFishy)
             {
@@ -24,7 +24,7 @@ namespace Banks.Entities.Command
             _denied = true;
         }
 
-        public float GetMoney()
+        public double GetMoney()
         {
             return _money;
         }
@@ -45,6 +45,7 @@ namespace Banks.Entities.Command
 
             _accountFrom.RemoveCommand(this);
             _accountFrom.AddMoney(_money);
+            _denied = true;
         }
     }
 }

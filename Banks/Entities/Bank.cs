@@ -14,10 +14,9 @@ namespace Banks.Entities
         private List<ISubscriber> _listOfSubscribedClients;
         private IClientBuilder _clientBuilder;
         private ICreator _currentCreator;
-        private float _debitInterestRate;
-        private float _depositInterestRate;
-        private float _creditCommission;
-        private float _fishyLimit;
+        private double _debitInterestRate;
+        private double _creditCommission;
+        private double _fishyLimit;
         private int _yearsLiveOfAccounts;
         private Timer _timerCalculateInterests;
         private IHandler _depositHandler;
@@ -39,21 +38,12 @@ namespace Banks.Entities
             get => _clientBuilder;
         }
 
-        public float DebitInterestRate
+        public double DebitInterestRate
         {
             get => _debitInterestRate;
             internal set
             {
                 _debitInterestRate = value;
-            }
-        }
-
-        public float DepositInterestRate
-        {
-            get => _depositInterestRate;
-            internal set
-            {
-                _depositInterestRate = value;
             }
         }
 
@@ -66,7 +56,7 @@ namespace Banks.Entities
             }
         }
 
-        public float CreditCommission
+        public double CreditCommission
         {
             get => _creditCommission;
             internal set
@@ -75,7 +65,7 @@ namespace Banks.Entities
             }
         }
 
-        public float FishyLimit
+        public double FishyLimit
         {
             get => _fishyLimit;
             internal set
@@ -122,7 +112,7 @@ namespace Banks.Entities
             _currentCreator = accountCreator;
         }
 
-        public void CreateAccount(Client client)
+        public AbstractAccount CreateAccount(Client client)
         {
             bool isClientAtBank = _listOfClients.Any(c => c == client);
             if (!isClientAtBank)
@@ -130,7 +120,9 @@ namespace Banks.Entities
                 throw new BankException("Client not at Bank!");
             }
 
-            client.AddAccount(_currentCreator.CreateAccount(client));
+            AbstractAccount account = _currentCreator.CreateAccount(client);
+            client.AddAccount(account);
+            return account;
         }
 
         public void SetCommand(ICommand command)

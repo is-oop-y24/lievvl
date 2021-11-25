@@ -19,14 +19,9 @@ namespace Banks.Builders
             _bank = new Bank(_id);
         }
 
-        public void SetDebitInterestRate(float interestRate)
+        public void SetDebitInterestRate(double interestRate)
         {
             _bank.DebitInterestRate = interestRate;
-        }
-
-        public void SetDepositInterestRate(float interestRate)
-        {
-            _bank.DepositInterestRate = interestRate;
         }
 
         public void SetDepositHandler(IHandler depositHandler)
@@ -34,12 +29,17 @@ namespace Banks.Builders
             _bank.DepositHandler = depositHandler;
         }
 
-        public void SetCreditCommission(float commission)
+        public void SetCreditCommission(double commission)
         {
             _bank.CreditCommission = commission;
         }
 
-        public void SetFishyLimit(float fishyLimit)
+        public void SetYearsLiveOfAccount(int years)
+        {
+            _bank.YearsLiveOfAccounts = years;
+        }
+
+        public void SetFishyLimit(double fishyLimit)
         {
             _bank.FishyLimit = fishyLimit;
         }

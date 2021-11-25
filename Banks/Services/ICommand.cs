@@ -2,7 +2,7 @@
 {
     public interface ICommand
     {
-        public float GetMoney();
+        public double GetMoney();
         internal void Execute();
         public void DenyCommand();
     }

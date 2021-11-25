@@ -62,18 +62,20 @@ namespace Banks.Entities
         public string Address
         {
             get => _address;
-            internal set
+            set
             {
                 _address = value;
+                CheckFishyStatus();
             }
         }
 
         public string Passport
         {
             get => _passport;
-            internal set
+            set
             {
                 _passport = value;
+                CheckFishyStatus();
             }
         }
 
@@ -108,6 +110,17 @@ namespace Banks.Entities
         internal void AddAccount(AbstractAccount account)
         {
             _clientsAccounts.Add(account);
+        }
+
+        private void CheckFishyStatus()
+        {
+            if (_isAccountFishy)
+            {
+                if (_address != null && _passport != null)
+                {
+                    _isAccountFishy = false;
+                }
+            }
         }
     }
 }

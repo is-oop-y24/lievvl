@@ -6,11 +6,11 @@ namespace Banks.Services
 {
     public abstract class AbstractAccount : ISubscriber
     {
-        private float _money;
+        private double _money;
         private Client _client;
         private DateTime _expiredDate;
         private List<ICommand> _listOfOperations;
-        private float _interestMoney;
+        private double _interestMoney;
 
         protected AbstractAccount(Client client, DateTime expiredDate)
         {
@@ -22,12 +22,12 @@ namespace Banks.Services
         }
 
         public DateTime ExpiredDate { get => _expiredDate; }
-        public float Money { get => _money; }
+        public double Money { get => _money; }
         public Client Client { get => _client; }
 
         public IReadOnlyList<ICommand> Operations { get => _listOfOperations; }
 
-        public float InterestMoney
+        public double InterestMoney
         {
             get => _interestMoney;
             internal set
@@ -56,10 +56,10 @@ namespace Banks.Services
 
         internal abstract void CalculateInterest();
 
-        internal abstract void AddMoney(float money);
+        internal abstract void AddMoney(double money);
 
-        internal abstract void DecreaseMoney(float money);
-        protected void SetMoney(float money)
+        internal abstract void DecreaseMoney(double money);
+        protected void SetMoney(double money)
         {
             _money = money;
         }

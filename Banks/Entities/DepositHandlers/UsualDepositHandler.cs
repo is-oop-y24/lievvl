@@ -5,10 +5,10 @@ namespace Banks.Entities.DepositHandlers
     public class UsualDepositHandler : IHandler
     {
         private IHandler _nextHandler;
-        private float _upperSum;
-        private float _interestRate;
+        private double _upperSum;
+        private double _interestRate;
 
-        public UsualDepositHandler(float upperSum, float interestRate)
+        public UsualDepositHandler(double upperSum, double interestRate)
         {
             _upperSum = upperSum;
             _interestRate = interestRate;

@@ -6,11 +6,11 @@ namespace Banks.Services
     {
         void Reset();
 
-        void SetDebitInterestRate(float interestRate);
-        void SetDepositInterestRate(float interestRate);
+        void SetDebitInterestRate(double interestRate);
         void SetDepositHandler(IHandler depositHandler);
-        void SetCreditCommission(float commission);
-        void SetFishyLimit(float fishyLimit);
+        public void SetYearsLiveOfAccount(int years);
+        void SetCreditCommission(double commission);
+        void SetFishyLimit(double fishyLimit);
 
         Bank GetBank();
     }

@@ -6,13 +6,14 @@ namespace Banks.Entities.Accounts
 {
     public class DebitAccount : AbstractAccount
     {
-        private float _interestRate;
-        public DebitAccount(Client client, DateTime expiredDate, float interestRate)
+        private double _interestRate;
+        public DebitAccount(Client client, DateTime expiredDate, double interestRate)
             : base(client, expiredDate)
         {
             _interestRate = interestRate;
         }
 
+        // TODO: implement
         public override void Update(string message)
         {
             throw new System.NotImplementedException();
@@ -23,7 +24,7 @@ namespace Banks.Entities.Accounts
             InterestMoney += Money * _interestRate;
         }
 
-        internal override void AddMoney(float money)
+        internal override void AddMoney(double money)
         {
             if (money < 0)
             {
@@ -33,7 +34,7 @@ namespace Banks.Entities.Accounts
             SetMoney(Money + money);
         }
 
-        internal override void DecreaseMoney(float money)
+        internal override void DecreaseMoney(double money)
         {
             if (money < 0)
             {

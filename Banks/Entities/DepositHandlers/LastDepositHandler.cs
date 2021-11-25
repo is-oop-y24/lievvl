@@ -5,9 +5,9 @@ namespace Banks.Entities.DepositHandlers
 {
     public class LastDepositHandler : IHandler
     {
-        private float _interestRate;
+        private double _interestRate;
 
-        public LastDepositHandler(float interestRate)
+        public LastDepositHandler(double interestRate)
         {
             _interestRate = interestRate;
         }

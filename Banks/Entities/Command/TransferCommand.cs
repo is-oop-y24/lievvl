@@ -8,9 +8,9 @@ namespace Banks.Entities.Command
         private AbstractAccount _accountFrom;
         private AbstractAccount _accountTo;
         private bool _denied;
-        private float _money;
+        private double _money;
 
-        public TransferCommand(AbstractAccount accountFrom, AbstractAccount accountTo, float money)
+        public TransferCommand(AbstractAccount accountFrom, AbstractAccount accountTo, double money)
         {
             if (accountFrom.Client.IsAccountFishy)
             {
@@ -34,7 +34,7 @@ namespace Banks.Entities.Command
             _denied = true;
         }
 
-        public float GetMoney()
+        public double GetMoney()
         {
             return _money;
         }
@@ -59,6 +59,7 @@ namespace Banks.Entities.Command
             _accountTo.RemoveCommand(this);
             _accountFrom.AddMoney(_money);
             _accountTo.DecreaseMoney(_money);
+            _denied = true;
         }
     }
 }

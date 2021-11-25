@@ -6,10 +6,10 @@ namespace Banks.Entities.Command
     public class RefillCommand : ICommand
     {
         private AbstractAccount _accountTo;
-        private float _money;
+        private double _money;
         private bool _denied;
 
-        public RefillCommand(AbstractAccount accountTo, float money)
+        public RefillCommand(AbstractAccount accountTo, double money)
         {
             if (accountTo.Client.IsAccountFishy)
             {
@@ -24,7 +24,7 @@ namespace Banks.Entities.Command
             _denied = true;
         }
 
-        public float GetMoney()
+        public double GetMoney()
         {
             return _money;
         }
@@ -45,6 +45,7 @@ namespace Banks.Entities.Command
 
             _accountTo.RemoveCommand(this);
             _accountTo.DecreaseMoney(_money);
+            _denied = true;
         }
     }
 }
