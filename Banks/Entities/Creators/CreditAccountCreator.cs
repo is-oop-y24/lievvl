@@ -1,6 +1,7 @@
 ﻿using System;
 using Banks.Entities.Accounts;
 using Banks.Services;
+using Banks.Tools;
 
 namespace Banks.Entities.Creators
 {
@@ -14,6 +15,11 @@ namespace Banks.Entities.Creators
 
         public AbstractAccount CreateAccount(Client client)
         {
+            if (client == null)
+            {
+                throw new BankException("client == null!");
+            }
+
             return new CreditAccount(
                 client,
                 DateTime.Today.AddYears(_bank.YearsLiveOfAccounts),

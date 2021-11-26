@@ -83,6 +83,8 @@ namespace Banks.Entities
             }
         }
 
+        public IReadOnlyList<Client> ListOfClients { get => _listOfClients; }
+
         public void Subscribe(ISubscriber subscriber)
         {
             _listOfSubscribedClients.Add(subscriber);

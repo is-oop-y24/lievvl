@@ -12,6 +12,11 @@ namespace Banks.Entities.Command
 
         public TransferCommand(AbstractAccount accountFrom, AbstractAccount accountTo, double money)
         {
+            if (accountFrom == null || accountTo == null)
+            {
+                throw new BankException("Received null instead of accountFrom/accountTo");
+            }
+
             if (accountFrom.Client.IsAccountFishy)
             {
                 if (accountFrom.Client.AttachedBank.FishyLimit < money)

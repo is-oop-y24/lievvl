@@ -30,7 +30,7 @@ namespace Banks.Tests
             bankBuilder.SetCreditCommission(1000);
             bankBuilder.SetDebitInterestRate(0.01);
             bankBuilder.SetYearsLiveOfAccount(2);
-            IHandler depositHandler = new UsualDepositHandler(1000, 0.01);
+            IHandler depositHandler = new UsualDepositHandler(1001, 0.01);
             depositHandler.SetNext(new LastDepositHandler(0.02));
             bankBuilder.SetDepositHandler(depositHandler);
             bankBuilder.SetFishyLimit(500);
@@ -60,8 +60,8 @@ namespace Banks.Tests
             command2 = new RefillCommand(account1, 400);
             bank1.SetCommand(command2);
             bank1.ExecuteCommand();
-            command3 = new RefillCommand(account2, 999);
-            bank1.SetCommand(new RefillCommand(account2, 999));
+            command3 = new RefillCommand(account2, 1000);
+            bank1.SetCommand(command3);
             bank1.ExecuteCommand();
             command4 = new RefillCommand(account3, 2000);
             bank1.SetCommand(command4);
@@ -119,6 +119,31 @@ namespace Banks.Tests
                     command1.DenyCommand();
                 }
             );
+        }
+
+        [Test]
+        public void UseKingCrimson_PayInterest_CheckDepositAccount_UseKingCrimson_CheckDepositAccount()
+        {
+            centralBank.KINGU_CRIMSONU(1);
+            centralBank.PayInterests();
+            Assert.AreEqual(1010, account2.Money);
+            
+            centralBank.KINGU_CRIMSONU(1);
+            centralBank.PayInterests();
+            Assert.AreEqual(1030.2, account2.Money);
+        }
+
+        [Test]
+        public void Withdraw3000FromCredit_UseKingCrimson_Check()
+        {
+            ICommand command = new WithdrawCommand(account3, 3000);
+            bank1.SetCommand(command);
+            bank1.ExecuteCommand();
+
+            centralBank.KINGU_CRIMSONU(1);
+            centralBank.PayInterests();
+
+            Assert.AreEqual(-2000, account3.Money);
         }
     }
 }

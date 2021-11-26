@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Banks.Entities.Loggers;
 using Banks.Services;
 using Banks.Tools;
 
@@ -13,6 +14,7 @@ namespace Banks.Entities
         private string _passport;
         private Bank _bank;
         private bool _isAccountFishy;
+        private ILogger _logger;
         private List<AbstractAccount> _clientsAccounts;
 
         public Client(int id)
@@ -23,6 +25,7 @@ namespace Banks.Entities
             _address = null;
             _passport = null;
             _isAccountFishy = true;
+            _logger = new LazyLogger();
             _clientsAccounts = new List<AbstractAccount>();
         }
 
@@ -102,9 +105,14 @@ namespace Banks.Entities
             get => _clientsAccounts;
         }
 
+        public void AttachLogger(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public void Update(string message)
         {
-            throw new System.NotImplementedException();
+            _logger.Log(message);
         }
 
         internal void AddAccount(AbstractAccount account)

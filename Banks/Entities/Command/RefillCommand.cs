@@ -11,6 +11,11 @@ namespace Banks.Entities.Command
 
         public RefillCommand(AbstractAccount accountTo, double money)
         {
+            if (accountTo == null)
+            {
+                throw new BankException("accountTo = null!");
+            }
+
             if (accountTo.Client.IsAccountFishy)
             {
                 if (accountTo.Client.AttachedBank.FishyLimit < money)

@@ -11,6 +11,11 @@ namespace Banks.Entities.Command
 
         public WithdrawCommand(AbstractAccount accountFrom, double money)
         {
+            if (accountFrom == null)
+            {
+                throw new BankException("accountFrom = null!");
+            }
+
             if (accountFrom.Client.IsAccountFishy)
             {
                 if (accountFrom.Client.AttachedBank.FishyLimit < money)
