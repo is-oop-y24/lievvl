@@ -109,7 +109,6 @@ namespace Banks.Entities
 
         public void SetAccountCreator(IFactory accountCreator)
         {
-            accountCreator.AttachBank(this);
             _currentCreator = accountCreator;
         }
 
@@ -121,7 +120,7 @@ namespace Banks.Entities
                 throw new BankException("Client not at Bank!");
             }
 
-            AbstractAccount account = _currentCreator.CreateAccount(client);
+            AbstractAccount account = _currentCreator.CreateAccount(this, client);
             client.AddAccount(account);
             return account;
         }

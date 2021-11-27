@@ -7,9 +7,7 @@ namespace Banks.Entities.Factories
 {
     public class CreditAccountFactory : IFactory
     {
-        private Bank _bank;
-
-        public AbstractAccount CreateAccount(Client client)
+        public AbstractAccount CreateAccount(Bank bank, Client client)
         {
             if (client == null)
             {
@@ -18,13 +16,8 @@ namespace Banks.Entities.Factories
 
             return new CreditAccount(
                 client,
-                DateTime.Today.AddYears(_bank.YearsLiveOfAccounts),
-                _bank.CreditCommission);
-        }
-
-        public void AttachBank(Bank bank)
-        {
-            _bank = bank;
+                DateTime.Today.AddYears(bank.YearsLiveOfAccounts),
+                bank.CreditCommission);
         }
     }
 }

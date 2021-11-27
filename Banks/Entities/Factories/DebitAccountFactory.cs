@@ -7,14 +7,7 @@ namespace Banks.Entities.Factories
 {
     public class DebitAccountFactory : IFactory
     {
-        private Bank _bank;
-
-        public void AttachBank(Bank bank)
-        {
-            _bank = bank;
-        }
-
-        public AbstractAccount CreateAccount(Client client)
+        public AbstractAccount CreateAccount(Bank bank, Client client)
         {
             if (client == null)
             {
@@ -23,8 +16,8 @@ namespace Banks.Entities.Factories
 
             return new DebitAccount(
                 client,
-                DateTime.Today.AddYears(_bank.YearsLiveOfAccounts),
-                _bank.DebitInterestRate);
+                DateTime.Today.AddYears(bank.YearsLiveOfAccounts),
+                bank.DebitInterestRate);
         }
     }
 }

@@ -4,7 +4,6 @@ namespace Banks.Services
 {
     public interface IFactory
     {
-        void AttachBank(Bank bank);
-        AbstractAccount CreateAccount(Client client);
+        AbstractAccount CreateAccount(Bank bank, Client client);
     }
 }
