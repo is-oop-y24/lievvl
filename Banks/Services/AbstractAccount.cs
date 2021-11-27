@@ -4,7 +4,7 @@ using Banks.Entities;
 
 namespace Banks.Services
 {
-    public abstract class AbstractAccount : ISubscriber
+    public abstract class AbstractAccount
     {
         private double _money;
         private Client _client;
@@ -35,8 +35,6 @@ namespace Banks.Services
                 _interestMoney = value;
             }
         }
-
-        public abstract void Update(string message);
 
         internal void AddCommand(ICommand command)
         {

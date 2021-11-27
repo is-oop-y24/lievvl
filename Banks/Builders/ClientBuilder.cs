@@ -51,14 +51,6 @@ namespace Banks.Builders
             }
 
             Client result = _client;
-            if (result.Address == null || result.Passport == null)
-            {
-                result.IsAccountFishy = true;
-            }
-            else
-            {
-                result.IsAccountFishy = false;
-            }
 
             _bank.AddClient(result);
 

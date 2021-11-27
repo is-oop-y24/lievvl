@@ -2,8 +2,8 @@
 {
     public interface ICommand
     {
-        public double GetMoney();
-        internal void Execute();
-        public void DenyCommand();
+        double GetMoney();
+        void Execute();
+        void DenyCommand();
     }
 }

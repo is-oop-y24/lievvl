@@ -13,14 +13,13 @@ namespace Banks.Entities
         private List<Client> _listOfClients;
         private List<ISubscriber> _listOfSubscribedClients;
         private IClientBuilder _clientBuilder;
-        private ICreator _currentCreator;
+        private IFactory _currentCreator;
         private double _debitInterestRate;
         private double _creditCommission;
         private double _fishyLimit;
         private int _yearsLiveOfAccounts;
         private Timer _timerCalculateInterests;
         private IHandler _depositHandler;
-        private ICommand _currentCommand;
 
         internal Bank(int id)
         {
@@ -108,7 +107,7 @@ namespace Banks.Entities
             }
         }
 
-        public void SetAccountCreator(ICreator accountCreator)
+        public void SetAccountCreator(IFactory accountCreator)
         {
             accountCreator.AttachBank(this);
             _currentCreator = accountCreator;
@@ -125,16 +124,6 @@ namespace Banks.Entities
             AbstractAccount account = _currentCreator.CreateAccount(client);
             client.AddAccount(account);
             return account;
-        }
-
-        public void SetCommand(ICommand command)
-        {
-            _currentCommand = command;
-        }
-
-        public void ExecuteCommand()
-        {
-            _currentCommand?.Execute();
         }
 
         internal void AddClient(Client client)

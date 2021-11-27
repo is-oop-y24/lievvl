@@ -13,12 +13,6 @@ namespace Banks.Entities.Accounts
             _commission = commission;
         }
 
-        // TODO: Implement
-        public override void Update(string message)
-        {
-            throw new System.NotImplementedException();
-        }
-
         internal override void CalculateInterest()
         {
             if (Money < 0)

@@ -1,8 +1,8 @@
 ﻿using System;
 using Banks.Entities;
 using Banks.Entities.Command;
-using Banks.Entities.Creators;
 using Banks.Entities.DepositHandlers;
+using Banks.Entities.Factories;
 using Banks.Services;
 
 namespace Banks
@@ -62,6 +62,7 @@ namespace Banks
             Client client = null;
             AbstractAccount accountFrom = null;
             AbstractAccount accountTo = null;
+            ICommand command = null;
             while (true)
             {
                 WelcomeBankInfo();
@@ -122,17 +123,17 @@ namespace Banks
 
                         if (inp == "transfer")
                         {
-                            bank.SetCommand(new TransferCommand(accountFrom, accountTo, money));
+                            command = new TransferCommand(accountFrom, accountTo, money);
                             Console.WriteLine("Set transfer command");
                         }
                         else if (inp == "refill")
                         {
-                            bank.SetCommand(new RefillCommand(accountTo, money));
+                            command = new RefillCommand(accountTo, money);
                             Console.WriteLine("Set refill command");
                         }
                         else if (inp == "withdraw")
                         {
-                            bank.SetCommand(new WithdrawCommand(accountFrom, money));
+                            command = new WithdrawCommand(accountFrom, money);
                             Console.WriteLine("Set withdraw command");
                         }
                         else
@@ -145,7 +146,7 @@ namespace Banks
 
                     case "4":
                     {
-                        bank.ExecuteCommand();
+                        command.Execute();
                         Console.WriteLine("Executed command");
                         break;
                     }
@@ -156,15 +157,15 @@ namespace Banks
                         string inp = Console.ReadLine();
                         if (inp == "credit")
                         {
-                            bank.SetAccountCreator(new CreditAccountCreator());
+                            bank.SetAccountCreator(new CreditAccountFactory());
                         }
                         else if (inp == "debit")
                         {
-                            bank.SetAccountCreator(new DebitAccountCreator());
+                            bank.SetAccountCreator(new DebitAccountFactory());
                         }
                         else if (inp == "deposit")
                         {
-                            bank.SetAccountCreator(new DepositAccountCreator());
+                            bank.SetAccountCreator(new DepositAccountFactory());
                         }
                         else
                         {

@@ -13,7 +13,6 @@ namespace Banks.Entities
         private string _address;
         private string _passport;
         private Bank _bank;
-        private bool _isAccountFishy;
         private ILogger _logger;
         private List<AbstractAccount> _clientsAccounts;
 
@@ -24,7 +23,6 @@ namespace Banks.Entities
             _surname = null;
             _address = null;
             _passport = null;
-            _isAccountFishy = true;
             _logger = new LazyLogger();
             _clientsAccounts = new List<AbstractAccount>();
         }
@@ -93,10 +91,9 @@ namespace Banks.Entities
 
         public bool IsAccountFishy
         {
-            get => _isAccountFishy;
-            internal set
+            get
             {
-                _isAccountFishy = value;
+                return CheckFishyStatus();
             }
         }
 
@@ -120,15 +117,14 @@ namespace Banks.Entities
             _clientsAccounts.Add(account);
         }
 
-        private void CheckFishyStatus()
+        private bool CheckFishyStatus()
         {
-            if (_isAccountFishy)
+            if (_address != null && _passport != null)
             {
-                if (_address != null && _passport != null)
-                {
-                    _isAccountFishy = false;
-                }
+                return false;
             }
+
+            return true;
         }
     }
 }

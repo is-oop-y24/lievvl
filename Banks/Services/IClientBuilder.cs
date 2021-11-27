@@ -11,6 +11,6 @@ namespace Banks.Services
         void SetAddress(string address);
         void SetPassport(string passport);
 
-        public Client GetClient();
+        Client GetClient();
     }
 }

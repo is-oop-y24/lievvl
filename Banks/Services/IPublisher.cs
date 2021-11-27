@@ -2,10 +2,10 @@
 {
     public interface IPublisher
     {
-        public void Subscribe(ISubscriber subscriber);
+        void Subscribe(ISubscriber subscriber);
 
-        public void Unsubscribe(ISubscriber subscriber);
+        void Unsubscribe(ISubscriber subscriber);
 
-        public void Inform(string message);
+        void Inform(string message);
     }
 }

@@ -3,14 +3,15 @@ using Banks.Entities.Accounts;
 using Banks.Services;
 using Banks.Tools;
 
-namespace Banks.Entities.Creators
+namespace Banks.Entities.Factories
 {
-    public class CreditAccountCreator : ICreator
+    public class DebitAccountFactory : IFactory
     {
         private Bank _bank;
 
-        public CreditAccountCreator()
+        public void AttachBank(Bank bank)
         {
+            _bank = bank;
         }
 
         public AbstractAccount CreateAccount(Client client)
@@ -20,15 +21,10 @@ namespace Banks.Entities.Creators
                 throw new BankException("client == null!");
             }
 
-            return new CreditAccount(
+            return new DebitAccount(
                 client,
                 DateTime.Today.AddYears(_bank.YearsLiveOfAccounts),
-                _bank.CreditCommission);
-        }
-
-        public void AttachBank(Bank bank)
-        {
-            _bank = bank;
+                _bank.DebitInterestRate);
         }
     }
 }

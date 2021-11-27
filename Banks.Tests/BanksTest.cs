@@ -1,7 +1,7 @@
 ﻿using Banks.Entities;
 using Banks.Entities.Command;
-using Banks.Entities.Creators;
 using Banks.Entities.DepositHandlers;
+using Banks.Entities.Factories;
 using Banks.Services;
 using Banks.Tools;
 using NUnit.Framework;
@@ -47,25 +47,21 @@ namespace Banks.Tests
             clientBuilder.SetPassport("0000 000000");
             client2 = clientBuilder.GetClient();
 
-            bank1.SetAccountCreator(new DebitAccountCreator());
+            bank1.SetAccountCreator(new DebitAccountFactory());
             account1 = bank1.CreateAccount(client1);
-            bank1.SetAccountCreator(new DepositAccountCreator());
+            bank1.SetAccountCreator(new DepositAccountFactory());
             account2 = bank1.CreateAccount(client2);
-            bank1.SetAccountCreator(new CreditAccountCreator());
+            bank1.SetAccountCreator(new CreditAccountFactory());
             account3 = bank1.CreateAccount(client2);
 
             command1 = new RefillCommand(account1, 400);
-            bank1.SetCommand(command1);
-            bank1.ExecuteCommand();
             command2 = new RefillCommand(account1, 400);
-            bank1.SetCommand(command2);
-            bank1.ExecuteCommand();
             command3 = new RefillCommand(account2, 1000);
-            bank1.SetCommand(command3);
-            bank1.ExecuteCommand();
             command4 = new RefillCommand(account3, 2000);
-            bank1.SetCommand(command4);
-            bank1.ExecuteCommand();
+            command1.Execute();
+            command2.Execute();
+            command3.Execute();
+            command4.Execute();
         }
 
         [Test]
@@ -84,8 +80,7 @@ namespace Banks.Tests
             client1.Address = "l";
             client1.Passport = "1111 111111";
             ICommand command = new TransferCommand(account1, account3, 600);
-            bank1.SetCommand(command);
-            bank1.ExecuteCommand();
+            command.Execute();
             Assert.AreEqual(200, account1.Money);
             Assert.AreEqual(2600, account3.Money);
         }
@@ -96,8 +91,7 @@ namespace Banks.Tests
             Assert.Catch<BankException>(() =>
             {
                 var command = new WithdrawCommand(account2, 1);
-                bank1.SetCommand(command);
-                bank1.ExecuteCommand();
+                command.Execute();
             }
             );
         }
@@ -137,8 +131,7 @@ namespace Banks.Tests
         public void Withdraw3000FromCredit_UseKingCrimson_Check()
         {
             ICommand command = new WithdrawCommand(account3, 3000);
-            bank1.SetCommand(command);
-            bank1.ExecuteCommand();
+            command.Execute();
 
             centralBank.KINGU_CRIMSONU(1);
             centralBank.PayInterests();

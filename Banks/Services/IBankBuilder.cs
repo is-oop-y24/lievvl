@@ -8,7 +8,7 @@ namespace Banks.Services
 
         void SetDebitInterestRate(double interestRate);
         void SetDepositHandler(IHandler depositHandler);
-        public void SetYearsLiveOfAccount(int years);
+        void SetYearsLiveOfAccount(int years);
         void SetCreditCommission(double commission);
         void SetFishyLimit(double fishyLimit);
 

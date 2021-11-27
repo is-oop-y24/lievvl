@@ -34,7 +34,7 @@ namespace Banks.Entities.Command
             return _money;
         }
 
-        void ICommand.Execute()
+        public void Execute()
         {
             _denied = false;
             _accountFrom.DecreaseMoney(_money);

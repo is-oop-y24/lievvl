@@ -13,12 +13,6 @@ namespace Banks.Entities.Accounts
             _depositHandler = depositHandler;
         }
 
-        // TODO: implement
-        public override void Update(string message)
-        {
-            throw new System.NotImplementedException();
-        }
-
         internal override void CalculateInterest()
         {
             if (_depositHandler == null)

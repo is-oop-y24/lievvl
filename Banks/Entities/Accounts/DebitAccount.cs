@@ -13,12 +13,6 @@ namespace Banks.Entities.Accounts
             _interestRate = interestRate;
         }
 
-        // TODO: implement
-        public override void Update(string message)
-        {
-            throw new System.NotImplementedException();
-        }
-
         internal override void CalculateInterest()
         {
             InterestMoney += Money * _interestRate;
