@@ -118,11 +118,11 @@ namespace Banks.Tests
         [Test]
         public void UseKingCrimson_PayInterest_CheckDepositAccount_UseKingCrimson_CheckDepositAccount()
         {
-            centralBank.KINGU_CRIMSONU(1);
+            centralBank.CalculateInterests(1);
             centralBank.PayInterests();
             Assert.AreEqual(1010, account2.Money);
             
-            centralBank.KINGU_CRIMSONU(1);
+            centralBank.CalculateInterests(1);
             centralBank.PayInterests();
             Assert.AreEqual(1030.2, account2.Money);
         }
@@ -133,7 +133,7 @@ namespace Banks.Tests
             ICommand command = new WithdrawCommand(account3, 3000);
             command.Execute();
 
-            centralBank.KINGU_CRIMSONU(1);
+            centralBank.CalculateInterests(1);
             centralBank.PayInterests();
 
             Assert.AreEqual(-2000, account3.Money);

@@ -277,7 +277,7 @@ namespace Banks
                     {
                         Console.WriteLine("Input count");
                         int count = Convert.ToInt32(Console.ReadLine());
-                        centralBank.KINGU_CRIMSONU(count);
+                        centralBank.CalculateInterests(count);
                         break;
                     }
 

@@ -37,7 +37,7 @@ namespace Banks.Entities
             }
         }
 
-        public void KINGU_CRIMSONU(int count)
+        public void CalculateInterests(int count)
         {
             for (int i = 0; i < count; i++)
             {
