@@ -7,16 +7,15 @@ namespace Backups.Repositories
 {
     public class VirtualRepository : AbstractRepository
     {
-        private List<List<MemoryStream>> _memoryStreams;
-
         public VirtualRepository()
         {
-            _memoryStreams = new List<List<MemoryStream>>();
+            MemoryStreams = new List<List<MemoryStream>>();
         }
 
-        public IReadOnlyList<List<MemoryStream>> MemoryStreams
+        public List<List<MemoryStream>> MemoryStreams
         {
-            get => _memoryStreams;
+            get;
+            set;
         }
 
         public override List<string> Save(List<MemoryStream> listOfArchives, DateTime date)
@@ -24,10 +23,10 @@ namespace Backups.Repositories
             var zipPaths = new List<string>();
             for (int i = 0; i < listOfArchives.Count; i++)
             {
-                zipPaths.Add(Convert.ToString(GetHashCode()));
+                zipPaths.Add($"{MemoryStreams.Count}:{i}");
             }
 
-            _memoryStreams.Add(listOfArchives);
+            MemoryStreams.Add(listOfArchives);
             return zipPaths;
         }
     }

@@ -17,11 +17,19 @@ namespace Backups.Entities
         public DateTime Date
         {
             get => _dateTime;
+            set
+            {
+                _dateTime = value;
+            }
         }
 
-        public IReadOnlyList<Storage> Storages
+        public List<Storage> Storages
         {
             get => _storages;
+            set
+            {
+                _storages = value;
+            }
         }
     }
 }

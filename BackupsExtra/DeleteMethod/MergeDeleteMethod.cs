@@ -8,6 +8,10 @@ namespace BackupsExtra.DeleteMethod
 {
     public class MergeDeleteMethod : IDeleteMethod
     {
+        public MergeDeleteMethod()
+        {
+        }
+
         public void Execute(BackupJob job, List<RestorePoint> listOfRpToDelete)
         {
             List<RestorePoint> listOfRp = listOfRpToDelete;
@@ -15,7 +19,7 @@ namespace BackupsExtra.DeleteMethod
             while (listOfRp.Count > 1)
             {
                 var newIterationList = new List<RestorePoint>();
-                for (int i = 0; i < listOfRp.Count - 2; i++)
+                for (int i = 0; i < listOfRp.Count - 1; i++)
                 {
                     newIterationList.Add(Merge(listOfRp[i], listOfRp[i + 1]));
                 }

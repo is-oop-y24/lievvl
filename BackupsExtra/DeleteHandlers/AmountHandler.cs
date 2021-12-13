@@ -10,14 +10,28 @@ namespace BackupsExtra.DeleteHandlers
         private int _limit;
         private IHandler _nextHandler;
 
+        public AmountHandler()
+        {
+        }
+
         public AmountHandler(int limit)
         {
-            if (_limit <= 0)
+            if (limit <= 0)
             {
                 throw new BackupException("Limit < 0!");
             }
 
             _limit = limit;
+        }
+
+        private int Limit
+        {
+            get => _limit;
+        }
+
+        private IHandler NextHandler
+        {
+            get => _nextHandler;
         }
 
         public List<List<RestorePoint>> Execute(IReadOnlyList<RestorePoint> listOfPoints)

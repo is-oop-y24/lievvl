@@ -8,6 +8,10 @@ namespace BackupsExtra.Loggers
         private StreamWriter _stream;
         private ILoggerHandler _prefixHandler;
 
+        public FileLogger()
+        {
+        }
+
         public FileLogger(string logPath)
         {
             if (File.Exists(logPath))

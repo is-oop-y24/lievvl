@@ -22,7 +22,17 @@ namespace Backups.Entities
             _listOfRestorePoints = new List<RestorePoint>();
         }
 
-        public IReadOnlyList<RestorePoint> RestorePoints
+        public AbstractRepository Repository
+        {
+            get => _repository;
+        }
+
+        public ISaveStrategy SaveStrategy
+        {
+            get => _saveStrategy;
+        }
+
+        public List<RestorePoint> RestorePoints
         {
             get => _listOfRestorePoints;
         }
@@ -30,6 +40,10 @@ namespace Backups.Entities
         public JobObject JobObject
         {
             get => _jobObject;
+            set
+            {
+                _jobObject = JobObject;
+            }
         }
 
         public string JobPath

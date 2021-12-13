@@ -6,6 +6,11 @@ namespace BackupsExtra.Loggers
     public class ConsoleLogger : ILogger
     {
         private ILoggerHandler _prefixHandler;
+
+        public ConsoleLogger()
+        {
+        }
+
         public void Log(string message)
         {
             string toWrite = string.Empty;

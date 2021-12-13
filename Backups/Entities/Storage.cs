@@ -16,16 +16,28 @@
         public string ZipPath
         {
             get => _zipPath;
+            set
+            {
+                _zipPath = value;
+            }
         }
 
         public string Filename
         {
             get => _filename;
+            set
+            {
+                _filename = value;
+            }
         }
 
         public string OriginalFilePath
         {
             get => _originalFilePath;
+            set
+            {
+                _originalFilePath = value;
+            }
         }
     }
 }

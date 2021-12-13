@@ -7,6 +7,10 @@ namespace BackupsExtra.DeleteAlgorithms
 {
     public class AllStrategy : IDeleteAlgorithm
     {
+        public AllStrategy()
+        {
+        }
+
         public List<RestorePoint> Execute(List<List<RestorePoint>> listsOfRpToDelete)
         {
             if (listsOfRpToDelete.Count == 1)

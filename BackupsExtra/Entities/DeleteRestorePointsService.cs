@@ -19,6 +19,26 @@ namespace BackupsExtra.Entities
             _logger = new UsualLazyLogger();
         }
 
+        public ILogger Logger
+        {
+            get => _logger;
+        }
+
+        public IHandler DeleteHandler
+        {
+            get => _deleteHandler;
+        }
+
+        public IDeleteAlgorithm DeleteAlgorithm
+        {
+            get => _deleteAlgorithm;
+        }
+
+        public IDeleteMethod DeleteMethod
+        {
+            get => _deleteMethod;
+        }
+
         public void AttachLogger(ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException();

@@ -10,9 +10,23 @@ namespace BackupsExtra.DeleteHandlers
         private DateTime _expired;
         private IHandler _nextHandler;
 
+        public TimeHandler()
+        {
+        }
+
         public TimeHandler(DateTime expired)
         {
             _expired = expired;
+        }
+
+        private DateTime Expired
+        {
+            get => _expired;
+        }
+
+        private IHandler NextHandler
+        {
+            get => _nextHandler;
         }
 
         public List<List<RestorePoint>> Execute(IReadOnlyList<RestorePoint> listOfPoints)
