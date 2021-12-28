@@ -19,7 +19,14 @@ namespace Backups.Entities
             _filePaths = filePaths;
         }
 
-        public IReadOnlyList<string> FilePaths { get => _filePaths; }
+        public List<string> FilePaths
+        {
+            get => _filePaths;
+            set
+            {
+                _filePaths = value;
+            }
+        }
 
         public void AddFile(string filePath)
         {

@@ -22,7 +22,17 @@ namespace Backups.Entities
             _listOfRestorePoints = new List<RestorePoint>();
         }
 
-        public IReadOnlyList<RestorePoint> RestorePoints
+        public AbstractRepository Repository
+        {
+            get => _repository;
+        }
+
+        public ISaveStrategy SaveStrategy
+        {
+            get => _saveStrategy;
+        }
+
+        public List<RestorePoint> RestorePoints
         {
             get => _listOfRestorePoints;
         }
@@ -30,6 +40,10 @@ namespace Backups.Entities
         public JobObject JobObject
         {
             get => _jobObject;
+            set
+            {
+                _jobObject = JobObject;
+            }
         }
 
         public string JobPath
@@ -52,6 +66,16 @@ namespace Backups.Entities
             RestorePoint restorePoint = _saveStrategy.Execute(_jobObject, _repository, DateTime.Now);
             _listOfRestorePoints.Add(restorePoint);
             return restorePoint;
+        }
+
+        public void AddRestorePoint(RestorePoint restorePoint)
+        {
+            if (restorePoint == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _listOfRestorePoints.Add(restorePoint);
         }
 
         public void DeleteRestorePoint(RestorePoint restorePoint)

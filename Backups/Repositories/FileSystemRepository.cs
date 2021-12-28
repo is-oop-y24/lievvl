@@ -7,6 +7,8 @@ namespace Backups.Repositories
 {
     public class FileSystemRepository : AbstractRepository
     {
+        public FileSystemRepository() { }
+
         public override List<string> Save(List<MemoryStream> zipArchivesAtByte, DateTime date)
         {
             if (!Directory.Exists(GetJobPath()))
